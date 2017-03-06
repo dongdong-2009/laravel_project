@@ -1,5 +1,5 @@
 <?php
-
+use App\Http\Middleware\Mkk;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -15,7 +15,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-//获取环境变量测试
+/***********************************************
+ *                     测试                    *
+/**********************************************/
+//获取环境变量
 Route::get('/getenv',function() {
 	$app_url = env('APP_URL','我是默认值,.env文件没有设置我');
 	$environment = App::environment();
@@ -28,7 +31,7 @@ Route::get('/getenv',function() {
 	}
 });
 
-//访问配置值测试
+//访问配置值
 Route::get('/getconfig',function() {
 	//config(['database.connections'=>"我已经设置了"]);
 	$value = config('database.connections');
@@ -38,3 +41,26 @@ Route::get('/getconfig',function() {
 		return ['status'=>'OK','databases.connections'=>$value];
 	}
 });
+
+//单个路由参数,where方法可以传关联数组
+Route::get('user/{id}',function($user){
+	return ['user'=>$user];
+})->where('id','[A-Za-z]+');
+
+//多个路由参数
+Route::get('people/{name}/{age}',function($name,$age){
+	return ['name'=>$name,'age'=>$age];
+});
+
+//路由群组
+Route::group(['prefix'=>'haosi','middleware'=>'haosi'], function () {
+    Route::get('mkk', function () {
+        return ['status'=>'ok','data'=>'我是小昆哥'];
+    });
+});
+
+//自己定义的中间件，出错重定向到该页面
+Route::get('Haosi',function(){
+	return ['status'=>'error','msg'=>'浩思不要小孩'];
+});
+ /***********************************************/

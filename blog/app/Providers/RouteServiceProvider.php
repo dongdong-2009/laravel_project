@@ -23,8 +23,8 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
-
+        //全局约束路由参数，不能传数组
+        Route::pattern('age','[0-9]+');  //mkk
         parent::boot();
     }
 
