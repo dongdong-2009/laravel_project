@@ -66,3 +66,9 @@ Route::get('Haosi',function(){
 	return ['status'=>'error','msg'=>'浩思不要小孩'];
 });
  /***********************************************/
+
+ /*
+ 	控制器路由,调用控制器UserController的show方法
+ 	两个参数都会传给控制器，名字不用对，只要位置对上即可
+  */
+ Route::get('msg/{id}/{name}','UserController@show');
