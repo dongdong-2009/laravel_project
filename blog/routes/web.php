@@ -44,6 +44,7 @@ Route::get('/getconfig',function() {
 });
 
 //单个路由参数,where方法可以传关联数组
+//url中带{}的会识别为参数传给闭包函数
 Route::get('user/{id}',function($user){
 	return ['user'=>$user];
 })->where('id','[A-Za-z]+');
