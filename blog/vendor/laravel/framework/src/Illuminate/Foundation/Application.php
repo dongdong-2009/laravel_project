@@ -147,10 +147,13 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
             $this->setBasePath($basePath);
         }
 
+        //初始化最简单的容器
         $this->registerBaseBindings();
 
+        //在容器中注册最基本的服务提供者（即ServiceProvider）
         $this->registerBaseServiceProviders();
 
+        //在容器中注册一些核心类的别名（这个说法貌似有点不妥，可以参见以下的代码注释自己再理解一下）
         $this->registerCoreContainerAliases();
     }
 

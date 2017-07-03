@@ -20,6 +20,7 @@ Route::get('/', function () {
 /**********************************************/
 //获取环境变量
 Route::get('/getenv',function() {
+	//在.env中如果有APP_URL则用.env中的，没有的话就用第二个参数
 	$app_url = env('APP_URL','我是默认值,.env文件没有设置我');
 	$environment = App::environment();
 	if($app_url && $environment){

@@ -1,5 +1,6 @@
 <?php
 
+//记录开始时间
 define('LARAVEL_START', microtime(true));
 
 /*
