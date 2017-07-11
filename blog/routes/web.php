@@ -76,7 +76,8 @@ Route::group(['prefix'=>'haosi','middleware'=>'haosi'], function () {
 //自己定义的中间件，出错重定向到该页面
 Route::get('Haosi',function(Request $request){
 	return [
-		'status' => 'error','msg'=>'浩思不要小孩',
+		'status' => 'error',
+		'msg'=>'浩思不要小孩',
 		'路由名称' => ($this->current()) ? $this->current()->getName() : null,
 		'request[\'age\']' => $request->input('age'),
 		'$path' => $request->path(),
@@ -114,3 +115,7 @@ Route::resource('photos','PhotoController',[
 		'photos' => 'liuyan',
 	],
 	]);
+
+/*
+	利用控制器测试请求
+ */
