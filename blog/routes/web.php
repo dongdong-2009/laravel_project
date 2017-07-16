@@ -1,6 +1,8 @@
 <?php
 use App\Http\Middleware\Mkk;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\View;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -12,8 +14,65 @@ use Illuminate\Http\Request;
 |
 */
 
+Route::get('blade_test',function(Request $request){
+	//方法一：从url截取视图名
+	/*$url = $request->url();
+	$pos = strrpos($url,'/');	//从右边获取字符在字符串中出现的位置
+	$blade_view = substr($url,$pos+1);	//从字符串中截取指定长度
+	return ['blade_view' => $blade_view,'url'=>$url];*/
+	//方法二：从get参数获取视图名
+	$blade_view = $request->input('view');
+	if(View::exists($blade_view)){
+		return view($blade_view,[
+			'name' => 'akon',
+			'salary' => '10k',
+		]);
+	}else{
+		return response()->json([
+				'status' => 'error',
+				'msg'=> '访问的视图'.$blade_view.'不存在'
+			]);
+	}
+});
+
+//多级目录访问视图用.方式,用/也可以
+Route::get('dir_hello',function(){
+	return view('dir.hello',[
+		'name' => 'akon',
+		'salary' => '10k',
+		]);
+});
+
+Route::get('view_with',function(){
+	return view('dir.with')->with('with',"I am with");
+});
+
+
 Route::get('/', function () {
     return view('welcome');
+});
+
+//重定向到指定url，并添加session并且在blade中显示
+Route::get('redir',function(){
+	return redirect('/')->with('status', '重定向页面session');
+});
+
+//响应并自动下载文件
+Route::get('download',function(){
+	return response()->download('G:\laravel5.4\blog\webpack.mix.js',"我是小昆哥");
+});
+
+//返回数组，自动转换为json字符串
+Route::get('response_json',function(){
+	return response()->json([
+			'name' => "Akon",
+			'age' => '20',
+		]);
+});
+
+//响应文件
+Route::get("show_file",function(){
+	return response()->file('G:\web\js\img\1.jpg');
 });
 
 /***********************************************

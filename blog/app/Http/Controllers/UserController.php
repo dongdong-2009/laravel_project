@@ -21,10 +21,12 @@ class UserController extends Controller
 	}
 
     //控制器测试方法
-    public function show($id,$name){
+    public function show(Request $request,$id,$name){
     	return [
     		'id' => $id,
     		'name' => $name,
+    		//有第二个参数，当session变量不存在时会使用默认值
+    		'session[s]' => $request->session()->get('s','默认session值'),
     	];
     }
 }
