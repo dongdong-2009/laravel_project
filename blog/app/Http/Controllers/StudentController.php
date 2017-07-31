@@ -7,6 +7,9 @@ use Illuminate\Support\Facades\DB;
 
 class StudentController extends Controller
 {
+    /*
+        使用DB操作数据库
+     */
     public function select(){
     	$sql = 'select * from student';
     	$student = DB::select($sql);
@@ -25,7 +28,7 @@ class StudentController extends Controller
     }
 
     public function update(){
-    	$sql = 'update student set age = ? where name == ?';
+    	$sql = 'update student set age = ? where name = ?';
     	$count = DB::update($sql,
     		['100','mayun']);
     	var_dump($count);
@@ -35,5 +38,12 @@ class StudentController extends Controller
     	$sql = 'delete from student where name = ?';
     	$num = DB::delete($sql,[$name]);
     	var_dump($num);
+    }
+
+    /*
+        查询构造器操作数据库
+     */
+    public function query3(){
+        return "hello";
     }
 }

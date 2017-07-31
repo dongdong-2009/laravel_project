@@ -196,7 +196,7 @@ Route::get('Haosi',function(Request $request){
  /**************************************************************
 							控制器测试
  ***************************************************************/
-//----------------------------1---------------------------------
+//----------------------------【1】北风网视频---------------------------------
 //访问MemberController控制器方法info方式1
 //Route::get('member/info','MemberController@info');
 //访问MemberController控制器方法info方式2
@@ -210,7 +210,10 @@ Route::match(['get','post','put'],'DB_facade_select','StudentController@select')
 Route::match(['get','post','put'],'DB_facade_insert/{name}/{age}/{sex}','StudentController@insert');
 Route::match(['get','post','put'],'DB_facade_update','StudentController@update');
 Route::match(['get','post','put'],'DB_facade_delete/{name}','StudentController@delete');
+Route::get('query3','StudentController@query3');
 //----------------------------1---------------------------------
+
+/****************************【2】laravel China论坛**********************************/
  /*
  	控制器路由,调用控制器UserController的show方法
  	两个参数都会传给控制器，名字不用对，只要位置对上即可
