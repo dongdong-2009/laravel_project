@@ -14,6 +14,56 @@ use Illuminate\Support\Facades\View;
 |
 */
 
+/*Route::get('post1',function(){
+	return view('post1');
+});
+//post请求的的路由
+Route::post('post2',function(Request $req){
+	echo "<pre>";
+	var_dump($req);
+	echo "</pre>";
+	return [
+		'name' => $req->input('username'),
+		'passwd' => $req->input('passwd')
+	];
+});*/
+
+/*
+//路由别名
+Route::get('alias/22',['as' => 'super',function(){
+	return [
+		'msg' => '路由别名',
+		'route_name' => route('super')
+	];
+}]);*/
+
+/*//路由群组
+Route::group(['prefix' => 'member'],function(){
+	Route::get('xueyou',function(){
+		return ['member' => "xueyou"];
+	});
+
+	Route::get('xudong',function(){
+		return ['member' => "xudong"];
+	});
+});*/
+
+/*//路由参数后面加?可以省略
+Route::get('user100/{id}/{name?}',function($id1,$name = 'akon'){
+	return $name == 'akon' ? [
+		'status' => '使用了匿名函数默认参数，路由参数加问号可以省略参数',
+		'id' => $id1,
+		'name' => $name,
+	] : [
+		'status' => '正常使用参数',
+		'id' => $id1,
+		'name' => $name,
+	];
+})->where([
+	'id' => '[1-9][1-9]',
+	'name' => '[A-Za-z]+'
+]);*/
+
 Route::get('blade_test',function(Request $request){
 	//方法一：从url截取视图名
 	/*$url = $request->url();
@@ -121,8 +171,8 @@ Route::get('user/{id}',function(Request $request,$user){
 })->where('id','[A-Za-z]+');
 
 //多个路由参数
-Route::get('people/{name}/{age}',function($name,$age){
-	return ['name'=>$name,'age'=>$age];
+Route::get('people/{name}/{age?}',function($name1,$age1){
+	return ['name'=>$name1,'age'=>$age1];
 });
 
 //路由群组
@@ -142,8 +192,25 @@ Route::get('Haosi',function(Request $request){
 		'$path' => $request->path(),
 	];
 });
- /***********************************************/
 
+ /**************************************************************
+							控制器测试
+ ***************************************************************/
+//----------------------------1---------------------------------
+//访问MemberController控制器方法info方式1
+//Route::get('member/info','MemberController@info');
+//访问MemberController控制器方法info方式2
+Route::any('member/info/{name}/{age}',['uses' => 'MemberController@info'])
+->where(['name' => '[a-zA-Z]+','age' => '[1-9]+']);
+
+Route::match(['get','post'],'member/modelTest','MemberController@modelTest');
+
+//控制器操作学生表
+Route::match(['get','post','put'],'DB_facade_select','StudentController@select');
+Route::match(['get','post','put'],'DB_facade_insert/{name}/{age}/{sex}','StudentController@insert');
+Route::match(['get','post','put'],'DB_facade_update','StudentController@update');
+Route::match(['get','post','put'],'DB_facade_delete/{name}','StudentController@delete');
+//----------------------------1---------------------------------
  /*
  	控制器路由,调用控制器UserController的show方法
  	两个参数都会传给控制器，名字不用对，只要位置对上即可
@@ -175,6 +242,4 @@ Route::resource('photos','PhotoController',[
 	],
 	]);
 
-/*
-	利用控制器测试请求
- */
+
