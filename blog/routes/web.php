@@ -210,7 +210,13 @@ Route::match(['get','post','put'],'DB_facade_select','StudentController@select')
 Route::match(['get','post','put'],'DB_facade_insert/{name}/{age}/{sex}','StudentController@insert');
 Route::match(['get','post','put'],'DB_facade_update','StudentController@update');
 Route::match(['get','post','put'],'DB_facade_delete/{name}','StudentController@delete');
-Route::get('query3','StudentController@query3');
+Route::get('query_bulder_insert','StudentController@query_bulder_insert');
+Route::get('query_builder_update','StudentController@query_builder_update');
+Route::get('query_builder_delete','StudentController@query_builder_delete');
+Route::get('query_builder_select','StudentController@query_builder_select');
+Route::get('query_builder_juhefunc','StudentController@query_builder_juhefunc');
+Route::get('orm_select','StudentController@orm_select');
+Route::get('orm_add','StudentController@orm_add');
 //----------------------------1---------------------------------
 
 /****************************【2】laravel China论坛**********************************/
