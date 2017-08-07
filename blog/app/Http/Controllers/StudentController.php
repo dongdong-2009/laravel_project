@@ -177,6 +177,61 @@ class StudentController extends Controller
         $bool = $student->save();
         dd($student);*/
 
-        return Student::find(8)->created_at;
+        //$student =  Student::find(8);
+        //return ['id' => 8,'created_at' => $student->created_at];
+        //return $student->created_at;
+        //echo date('Y-m-d H:i:s',$student->created_at);
+        
+        //使用模型的create方法新增数据
+        /*$student = Student::create(
+            ['name' => 'akon1','age' => '18']
+        );
+        dd($student);*/
+
+        //以属性查找用户，如果没有则新增，返回查找到的实例
+        /*$student = Student::firstOrCreate(
+            ['name' => 'akon2']
+        );*/
+
+        //以属性查找用户,不存在则创建实例，但需要手动保存
+        $student = Student::firstOrNew(
+            ['name' => 'akon3']
+        );
+        $bool = $student->save();
+
+        dd($student);
+    }
+
+    public function orm_update(){
+        //通过模型更新数据
+       /* $student = Student::find(13);
+        $student->name = 'akon3_update';
+        $bool = $student->save();
+        dd($bool);*/
+        /*$student = Student::where('name','akon3');
+        dd($student);*/
+
+        //结合查询语句批量更新
+        $num = Student::where('id','>',10)->update(
+            ['age' => '22']
+        );
+        dd($num);
+    }
+
+    public function orm_delete(){
+        //1、通过模型删除
+        /*$student = Student::find(13);
+        $bool = $student->delete();
+        dd($bool);*/
+
+        //2、通过主键值删除
+        /*$num = Student::destroy(12,11);
+        //$num = Student::destroy([12,11]);
+        //$num = Student::destroy(12);
+        dd($num);*/
+
+        //3、根据指定条件删除
+        $num = Student::where('id', '>' ,'8')->delete();
+        dd($num);
     }
 }

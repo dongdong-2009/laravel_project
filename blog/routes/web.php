@@ -217,6 +217,8 @@ Route::get('query_builder_select','StudentController@query_builder_select');
 Route::get('query_builder_juhefunc','StudentController@query_builder_juhefunc');
 Route::get('orm_select','StudentController@orm_select');
 Route::get('orm_add','StudentController@orm_add');
+Route::get('orm_update','StudentController@orm_update');
+Route::get('orm_delete','StudentController@orm_delete');
 //----------------------------1---------------------------------
 
 /****************************【2】laravel China论坛**********************************/
@@ -252,3 +254,7 @@ Route::resource('photos','PhotoController',[
 	]);
 
 
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index');
