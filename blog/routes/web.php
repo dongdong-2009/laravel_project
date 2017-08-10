@@ -240,6 +240,10 @@ Route::group(['middleware' => ['activity']],function(){
 });
 //宣传页面
 Route::get('student/activity0',['uses' => 'StudentController@activity0']);
+
+
+//学生管理系统
+Route::get('studentDemo/index',['uses' => 'StudentDemoController@index']);
 //----------------------------1---------------------------------
 
 /****************************【2】laravel China论坛**********************************/
