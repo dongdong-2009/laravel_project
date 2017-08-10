@@ -57,6 +57,7 @@ class Kernel extends HttpKernel
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         //mkk注册的中间件
-        'haosi'=>\App\Http\Middleware\HaosiMiddle::class,
+        'haosi' => \App\Http\Middleware\HaosiMiddle::class,
+        'activity' => \App\Http\Middleware\Activity::class,
     ];
 }

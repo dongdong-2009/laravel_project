@@ -224,11 +224,22 @@ Route::get('section2',['uses' => 'StudentController@section2']);
 Route::get('url',['uses' => 'StudentController@urlTest','as' => 'urlalias']);
 Route::get('student/request1',['uses' => 'StudentController@request1']);
 
-Route::group(['middleware' => ['web']],function(){
+/*Route::group(['middleware' => ['web']],function(){
 	Route::get('student/session1',['uses' => 'StudentController@session1']);
 	Route::get('student/session2',['uses' => 'StudentController@session2']);
-});
+});*/
 
+Route::get('student/session1',['uses' => 'StudentController@session1']);
+Route::get('student/session2',['uses' => 'StudentController@session2']);
+Route::get('student/reponse',['uses' => 'StudentController@reponse']);
+Route::get('student/redirect',['uses' => 'StudentController@redirect','as' => 'redir']);
+//在下面两个活动页面中使用中间件
+Route::group(['middleware' => ['activity']],function(){
+	Route::get('student/activity1',['uses' => 'StudentController@activity1']);
+	Route::get('student/activity2',['uses' => 'StudentController@activity2']);
+});
+//宣传页面
+Route::get('student/activity0',['uses' => 'StudentController@activity0']);
 //----------------------------1---------------------------------
 
 /****************************【2】laravel China论坛**********************************/

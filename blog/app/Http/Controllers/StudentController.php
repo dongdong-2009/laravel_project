@@ -328,4 +328,52 @@ class StudentController extends Controller
             'session::flash' => Session::get('key_flash'),
         ];
     }
+
+    public function reponse(){
+        $data = [
+            'errCode' => 0,
+            'errMsg' => 'success',
+            'data' => 'Sean',
+        ];
+
+        //return response()->json($data);
+        //return redirect('student/redirect')->with('msg','快闪数据');
+        /*return redirect()     //控制器方法跳转
+            ->action('StudentController@redirect')
+            ->with('msg','快闪数据');*/
+        //return redirect()->route('redir')->with('msg','快闪数据');    //路由别名跳转
+        return redirect()->back();  //返回上一个页面
+    }
+
+    public function redirect(){
+        $msg = Session::get('msg','暂无信息');
+        return [
+            'msg' => 'I am redirect',
+            'with_msg' => $msg,
+        ];
+    }
+
+    //活动的宣传页面
+    public function activity0(){
+        return [
+            'status' => 'not arrived',
+            'msg' => '活动即将开始，敬请期待',
+            'date_now' => date('Y-m-d h:i:s',time()),
+            'date_activity' => date('Y-m-d h:i:s',strtotime('2017-08-11'))
+        ];
+    }
+
+    public function activity1(){
+        return [
+            'status' => 'doing',
+            'msg' => '活动1正在进行中，谢谢您的参与'
+        ];
+    }
+
+    public function activity2(){
+        return [
+            'status' => 'doing',
+            'msg' => '活动2正在进行中，谢谢您的参与'
+        ];
+    }
 }
