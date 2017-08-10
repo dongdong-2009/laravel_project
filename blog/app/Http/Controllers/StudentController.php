@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Student;
+use Illuminate\Support\Facades\Session;
 
 class StudentController extends Controller
 {
@@ -260,5 +261,71 @@ class StudentController extends Controller
 
     public function urlTest(){
         return view('student.urlTest');
+    }
+
+    /*
+        laravel表单篇
+     */
+    public function request1(Request $req){
+        //1、取值
+        /*return [
+            'name' => $req->input('name'),
+            'sex' => $req->input('sex','未知性别')  //第二个参数为未定义变量时的默认值
+        ];*/
+
+        /*if($req->has('age')){
+            return $req->input('age');
+        }else{
+            return 'age is unset';
+        }*/
+
+        //dd($req->all());
+        
+        //2、判断请求类型
+        return [
+            'request_method' => $req->method(),
+            'judge_post_or_not' => $req->ismethod('POST') ? "is POST" : "not post",
+            'judge_ajax_request_ir_not' => $req->ajax() ? "is ajax request" : "not ajax request",
+            '判断请求前缀' => $req->is('student/*'),
+            '请求url' => $req->url(),
+        ];
+    }
+
+    public function session1(Request $req){
+        //1、HTTP request session()
+        //$req->session()->put('key1','value1');
+
+        //2、session的辅助函数
+        //session()->put('key2','value2');
+        
+        //3、通过Session类
+        //Session::put('key3','value3');
+        
+        //4、以数组的形式存储session
+        //Session::put(['key4' => 'value4']);
+        
+        //5、把数据放至session数组中
+        //Session::push('student',"stu1");
+        //Session::push('student',"stu2");
+        
+        //6、session只有第一在别的页面访问时存在
+        Session::flash('key_flash','val_flash');
+        return redirect('student/session2');
+    }
+
+    public function session2(Request $req){
+        //从session中取数据
+        return [
+            'session[key1]' => $req->session()->get('key1'),
+            'session[key2]' => session()->get('key2'),
+            'session[key3]' => Session::get('key3'),
+            'session[key4]' => session()->get('key4','default_key4'),
+            'session[student]' => Session::pull('student'),
+            'session::all' => Session::all(),
+            'session::has' => Session::has('key11'),
+            //'session::forget' => Session::forget('key1'),   //删除session指定值
+            //'session::flush' => Session::flush(),   //清空session
+            'session::flash' => Session::get('key_flash'),
+        ];
     }
 }

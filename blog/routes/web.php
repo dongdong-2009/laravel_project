@@ -222,6 +222,13 @@ Route::get('orm_delete','StudentController@orm_delete');
 Route::get('section1',['uses' => 'StudentController@section1']);
 Route::get('section2',['uses' => 'StudentController@section2']);
 Route::get('url',['uses' => 'StudentController@urlTest','as' => 'urlalias']);
+Route::get('student/request1',['uses' => 'StudentController@request1']);
+
+Route::group(['middleware' => ['web']],function(){
+	Route::get('student/session1',['uses' => 'StudentController@session1']);
+	Route::get('student/session2',['uses' => 'StudentController@session2']);
+});
+
 //----------------------------1---------------------------------
 
 /****************************【2】laravel China论坛**********************************/
