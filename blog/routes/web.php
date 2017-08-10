@@ -219,6 +219,9 @@ Route::get('orm_select','StudentController@orm_select');
 Route::get('orm_add','StudentController@orm_add');
 Route::get('orm_update','StudentController@orm_update');
 Route::get('orm_delete','StudentController@orm_delete');
+Route::get('section1',['uses' => 'StudentController@section1']);
+Route::get('section2',['uses' => 'StudentController@section2']);
+Route::get('url',['uses' => 'StudentController@urlTest','as' => 'urlalias']);
 //----------------------------1---------------------------------
 
 /****************************【2】laravel China论坛**********************************/

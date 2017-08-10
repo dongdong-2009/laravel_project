@@ -1,0 +1,1 @@
+<p>我是include,父视图:{{ $message }}</p>

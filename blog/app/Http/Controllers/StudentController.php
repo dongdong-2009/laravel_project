@@ -234,4 +234,31 @@ class StudentController extends Controller
         $num = Student::where('id', '>' ,'8')->delete();
         dd($num);
     }
+
+    public function section1(){
+        $name = 'sean';
+        $arr = ['sean','imoc'];
+
+        //第二个参数可以给视图传参
+        return view('student.section1',[
+            'name' => $name,
+            'arr' => $arr
+        ]);
+    }
+
+    public function section2(){
+        $students = Student::get();
+        $name = 'sean';
+        $arr = ['sean','imoc'];
+        
+        return view('student.section2',[
+            'name' => $name,
+            'arr' => $arr,
+            'students' => $students
+        ]);
+    }
+
+    public function urlTest(){
+        return view('student.urlTest');
+    }
 }
