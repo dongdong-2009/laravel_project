@@ -242,8 +242,13 @@ Route::group(['middleware' => ['activity']],function(){
 Route::get('student/activity0',['uses' => 'StudentController@activity0']);
 
 
-//学生管理系统
-Route::get('studentDemo/index',['uses' => 'StudentDemoController@index']);
+//学生管理系统,web中间件可以防止CRSF攻击
+Route::group(['middleware' => ['web']],function(){
+	Route::get('studentDemo/index',['uses' => 'StudentDemoController@index']);
+	Route::any('studentDemo/create',['uses' => 'StudentDemoController@create']);
+	Route::any('studentDemo/save',['uses' => 'StudentDemoController@save']);
+});
+
 //----------------------------1---------------------------------
 
 /****************************【2】laravel China论坛**********************************/
