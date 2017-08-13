@@ -6,6 +6,7 @@
 
 @section('content')
 @include('common.message')
+@include('common.validator')
 {{-- 所有的错误提示 --}}
 {{-- <div class="alert alert-danger">
 	<ul>
@@ -26,20 +27,22 @@
 			<div class="form-group">
 				<label for="name" class="col-sm-2 control-label">姓名</label>
 				<div class="col-sm-5">
-					<input type="text" name="Student[name]" class="form-control" id="name" placeholder="请输入学生姓名">
+					<input type="text" name="Student[name]" class="form-control" value="{{ old('Student')['name'] }}"
+					id="name" placeholder="请输入学生姓名">
 				</div>
 				<div class="col-sm-5">
-					<p class="form-control-static text-danger">姓名不能为空</p>
+					<p class="form-control-static text-danger">{{ $errors->first('Student.name') }}</p>
 				</div>
 			</div>
 
 			<div class="form-group">
 				<label for="age" class="col-sm-2 control-label">年龄</label>
 				<div class="col-sm-5">
-					<input type="text" name="Student[age]" class="form-control" id="age" placeholder="请输入学生年龄">
+					<input type="text" name="Student[age]" class="form-control" value="{{ old('Student')['age'] }}" 
+					id="age" placeholder="请输入学生年龄">
 				</div>
 				<div class="col-sm-5">
-					<p class="form-control-static text-danger">年龄不能为空</p>
+					<p class="form-control-static text-danger">{{ $errors->first('Student.age') }}</p>
 				</div>
 			</div>
 
@@ -55,6 +58,9 @@
 					<label class="radio-inline">
 						<input type="radio" name="Student[sex]" value="2">女
 					</label>
+				</div>
+				<div class="col-sm-5">
+					<p class="form-control-static text-danger">{{ $errors->first('Student.sex') }}</p>
 				</div>
 			</div>
 

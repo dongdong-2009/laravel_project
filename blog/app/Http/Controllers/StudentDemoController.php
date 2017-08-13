@@ -18,7 +18,7 @@ class StudentDemoController extends Controller
     public function create(Request $req){
     	//可以直接在当前页面处理新建请求
     	if($req->isMethod('POST')){
-    		dd("aaaaaaaaaaaaaa");
+    		dd("This is test");
     		$data = $req->input('Student');
     		if(Student::create($data)){
     			return redirect('studentDemo/index');
@@ -30,7 +30,53 @@ class StudentDemoController extends Controller
     }
 
     public function save(Request $req){
-    	$data = $req->input('Student');
+    	//dd('aaaaaaa');
+        
+        //1、控制器验证,参数1，参数2验证规则
+        //参数3：对验证规则重命名（数组）
+        //参数4：对错误变量重命令（数组）
+        //验证失败，会抛出异常被web中间件捕获，将错误保存至session并且保存至视图，并返回上级页面
+        //\Illuminate\View\Middleware\ShareErrorsFromSession::class,
+        //:attribute为占位符
+        /*$this->validate($req,[
+            'Student.name' => 'required | min:2 | max:10',
+            'Student.age' => 'required | integer',
+            'Student.sex' => 'required | integer',
+        ],[
+            'required' => ':attribute为必填项',
+            'min' => ':attribute最少2个字符',
+            'max' => ':attribute最多10个字符',
+            'integer' => ':attribute必须为整数',
+        ],[
+            'Student.name' => '姓名',
+            'Student.age' => '年龄',
+            'Student.sex' => '性别',
+        ]);*/
+
+        //2、Validator类验证
+        //需要手动注册错误信息给view视图
+        $validator = \Validator::make($req->input(),[
+            'Student.name' => 'required | min:2 | max:10',
+            'Student.age' => 'required | integer',
+            'Student.sex' => 'required | integer',
+        ],[
+            'required' => ':attribute为必填项',
+            'min' => ':attribute最少2个字符',
+            'max' => ':attribute最多10个字符',
+            'integer' => ':attribute必须为整数',
+        ],[
+            'Student.name' => '姓名',
+            'Student.age' => '年龄',
+            'Student.sex' => '性别',
+        ]);
+
+        //dd($validator);
+        //withinput进行数据保持
+        if($validator->fails()){
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        $data = $req->input('Student');
 
     	$stu = new StudentDemo();
     	$stu->name = $data['name'];

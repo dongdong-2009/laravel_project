@@ -39,6 +39,7 @@ class ShareErrorsFromSession
         // its value with all view instances so the views can easily access errors
         // without having to bind. An empty bag is set when there aren't errors.
         $this->view->share(
+            //errors是全局的错误变量
             'errors', $request->session()->get('errors') ?: new ViewErrorBag
         );
 
