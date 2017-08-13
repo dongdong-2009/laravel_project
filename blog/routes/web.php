@@ -247,6 +247,9 @@ Route::group(['middleware' => ['web']],function(){
 	Route::get('studentDemo/index',['uses' => 'StudentDemoController@index']);
 	Route::any('studentDemo/create',['uses' => 'StudentDemoController@create']);
 	Route::any('studentDemo/save',['uses' => 'StudentDemoController@save']);
+	Route::any('studentDemo/update/{id}',['uses' => 'StudentDemoController@update']);
+	Route::any('studentDemo/detail/{id}',['uses' => 'StudentDemoController@detail']);
+	Route::any('studentDemo/delete/{id}',['uses' => 'StudentDemoController@delete']);
 });
 
 //----------------------------1---------------------------------

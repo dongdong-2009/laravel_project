@@ -25,12 +25,13 @@
 				<th scope="row">{{ $stu->id }}</th>
 				<td>{{ $stu->name }}</td>
 				<td>{{ $stu->age }}</td>
-				<td>{{ $stu->sex ? '男' : '女' }}</td>
+				<td>{{ $stu->getsex($stu->sex)}}</td>
 				<td>{{ date('Y-m-d h:i:s',$stu->created_at) }}</td>
 				<td>
-					<a href="">详情</a>
-					<a href="">修改</a>
-					<a href="">删除</a>
+					<a href="{{ url('studentDemo/detail',['id' => $stu->id]) }}">详情</a>
+					<a href="{{ url('studentDemo/update',['id' => $stu->id]) }}">修改</a>
+					<a href="{{ url('studentDemo/delete',['id' => $stu->id]) }}"
+						onclick="if (confirm('你确定要删除{{ $stu->name }}吗?') == false) return false;">删除</a>
 				</td>
 			</tr>
 		@endforeach	

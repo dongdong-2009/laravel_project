@@ -16,6 +16,7 @@ class StudentDemoController extends Controller
     }
 
     public function create(Request $req){
+        $student = new StudentDemo();
     	//可以直接在当前页面处理新建请求
     	if($req->isMethod('POST')){
     		dd("This is test");
@@ -26,7 +27,9 @@ class StudentDemoController extends Controller
     			return redirect()->back();
     		}
     	}
-    	return view('student.create');
+    	return view('student.create',[
+            'student' => $student,
+        ]);
     }
 
     public function save(Request $req){
@@ -88,5 +91,66 @@ class StudentDemoController extends Controller
     	}else{
     		return redirect()->back();
     	}
+    }
+
+    public function update(Request $req,$id){
+        $student = StudentDemo::find($id);
+
+        if($req->isMethod('POST')){
+            $data = $req->input('Student');
+            $student->name = $data['name'];
+            $student->age = $data['age'];
+            $student->sex = $data['sex'];
+
+            $validator = \Validator::make($req->input(),[
+                'Student.name' => 'required | min:2 | max:10',
+                'Student.age' => 'required | integer',
+                'Student.sex' => 'required | integer',
+            ],[
+                'required' => ':attribute为必填项',
+                'min' => ':attribute最少2个字符',
+                'max' => ':attribute最多10个字符',
+                'integer' => ':attribute必须为整数',
+            ],[
+                'Student.name' => '姓名',
+                'Student.age' => '年龄',
+                'Student.sex' => '性别',
+            ]);
+
+            //withinput进行数据保持
+            if($validator->fails()){
+                return redirect()->back()->withErrors($validator)->withInput();
+            }
+
+            if($student->save()){
+                return redirect('studentDemo/index')->with('success','修改成功[id]-'.$id);
+            }else{
+                return redirect()->back();
+            }
+        }
+
+        return view('student.update',[
+            'student' => $student,
+        ]);
+    }
+
+    public function detail(Request $req,$id){
+        $student = StudentDemo::find($id);
+
+        return view('student.detail',[
+            'student' => $student,
+        ]);
+    }
+
+    public function delete($id){
+        $student = studentDemo::find($id);
+
+        if($student){
+            if($student->delete()){
+                return redirect('studentDemo/index')->with('success','删除'.$student->name.'成功');
+            }else{
+                return redirect('studentDemo/index')->with('success','删除'.$student->name.'失败');
+            }  
+        }
     }
 }
